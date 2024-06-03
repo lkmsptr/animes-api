@@ -1,12 +1,11 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
-const dotenv = require("dotenv");
-dotenv.config();
+const batosConfig = require("../batos.config");
 
 class Scraping {
   getStreaming = async (slug) => {
     try {
-      const $ = await this.koneksi(`${process.env.URL}/${slug}`);
+      const $ = await this.koneksi(`${batosConfig.url}/${slug}`);
       const title = $(
         "article > div.megavid > div > div.item.meta > div.lm > div > h1"
       )
@@ -87,7 +86,7 @@ class Scraping {
 
   getDownload = async (slug) => {
     try {
-      const $ = await this.koneksi(`${process.env.URL}/${slug}`);
+      const $ = await this.koneksi(`${batosConfig.url}/${slug}`);
       const downloadArray = $(
         "article > div.entry-content > div:nth-child(2) > div.mctnx > div"
       ).toArray();
@@ -143,7 +142,7 @@ class Scraping {
 
   getLatest = async (page = 1) => {
     try {
-      const $ = await this.koneksi(`${process.env.URL}/page/${page}`);
+      const $ = await this.koneksi(`${batosConfig.url}/page/${page}`);
       const animeArray = $(
         "#content > div > div.postbody > div:nth-child(2) > div.listupd.normal > div.excstf > article.stylesix"
       ).toArray();
@@ -237,7 +236,7 @@ class Scraping {
 
   animeDetail = async (slug) => {
     try {
-      const $ = await this.koneksi(`${process.env.URL}/anime/${slug}`);
+      const $ = await this.koneksi(`${batosConfig.url}/anime/${slug}`);
       const title = $(
         "article > div.bixbox.animefull > div > div.infox > h1"
       ).text();
